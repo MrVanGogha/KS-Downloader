@@ -172,7 +172,14 @@ class HTMLExtractor:
                 data,
                 f"{detail}.coverUrl",
             ),
-            "duration": APIExtractor.time_conversion(
+            # "duration": APIExtractor.time_conversion(
+            #     Namespace.object_extract(
+            #         data,
+            #         f"{detail}.duration",
+            #         0,
+            #     )
+            # ),
+             "duration": APIExtractor.ms_to_seconds(
                 Namespace.object_extract(
                     data,
                     f"{detail}.duration",
@@ -422,3 +429,7 @@ class APIExtractor:
         hours, remainder = divmod(seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
         return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+    @staticmethod
+    def ms_to_seconds(time_ms: int) -> int:
+        return time_ms // 1000
